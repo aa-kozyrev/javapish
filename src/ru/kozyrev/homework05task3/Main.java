@@ -1,4 +1,4 @@
-package ru.kozyrev.homework04task3;
+package ru.kozyrev.homework05task3;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package ru.kozyrev.homework04task2;
+package ru.kozyrev.homework05task2;
 
 public class Main {
     public static void main(String[] args) {
