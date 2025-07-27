@@ -1,7 +1,6 @@
 package ru.kozyrev.attestation.attestation01;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -17,10 +16,6 @@ public class App {
             Person person = new Person(words2[0].trim(), Double.parseDouble(words2[1].trim()));
             persons.add(person);
         }
-/*        for (int i = 0; i < persons.size(); i++) {
-            System.out.println(persons.get(i).toString());
-        }
-        System.out.println();*/
 
         // вводим Продукты
         ArrayList<Product> products = new ArrayList<>();
@@ -33,12 +28,9 @@ public class App {
             Product product = new Product(words2[0].trim(), Double.parseDouble(words2[1].trim()));
             products.add(product);
         }
-/*        for (int i = 0; i < products.size(); i++) {
-            System.out.println(products.get(i).toString());
-        }
-        System.out.println();*/
 
         // Покупки
+        System.out.println();
         while (true) {
             System.out.print("Введите данные для покупки или END для выхода из программы: ");
             terminal = new Scanner(System.in);
@@ -47,16 +39,16 @@ public class App {
                 break;
             }
             words1 = inputString.split("-");  // разбили строку на части
-            for (int i = 0; i < persons.size(); i++) {
-                if(persons.get(i).getName().equals(words1[0].trim())) {
+            for (Person person : persons) {
+                if (person.getName().equals(words1[0].trim())) {
                     // нашли покупателя
-                    for (int j = 0; j < products.size(); j++) {
-                        if(products.get(j).getName().equals(words1[1].trim())) {
+                    for (Product product : products) {
+                        if (product.getName().equals(words1[1].trim())) {
                             // нашли продукт
-                            if(persons.get(i).buy(products.get(j))) {
-                                System.out.println(persons.get(i).getName() + " купил(а) " + products.get(j).getName());
+                            if (person.buy(product)) {
+                                System.out.println(person.getName() + " купил(а) " + product.getName());
                             } else {
-                                System.out.println(persons.get(i).getName() + " не может позволить себе " + products.get(j).getName());
+                                System.out.println(person.getName() + " не может позволить себе " + product.getName());
                             }
                             break;
                         }
@@ -67,11 +59,22 @@ public class App {
         }
 
         // Вывод покупателей с их покупками
-/*
-        for (int i = 0; i < persons.size(); i++) {
-            System.out.println(persons.get(i).toString());
-        }
         System.out.println();
-*/
+        for (Person person : persons) {
+            //System.out.println(persons.get(i).toString());
+            System.out.print(person.getName() + " - ");
+            if (person.getProducts().isEmpty()) {
+                System.out.print("Ничего не куплено");
+            } else {
+                for (int j = 0; j < person.getProducts().size(); j++) {
+                    if (j == 0) {
+                        System.out.print(person.getProducts().get(j).getName());
+                    } else {
+                        System.out.print(", " + person.getProducts().get(j).getName());
+                    }
+                }
+            }
+            System.out.println();
+        }
     }
 }
