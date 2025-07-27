@@ -1,18 +1,17 @@
 package ru.kozyrev.attestation.attestation01;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Objects;
-
-//Если Покупатель может позволить себе Продукт, то Продукт добавляется в пакет. Если у Покупателя недостаточно денег, то добавление не происходит.
 
 public class Person {
     private String name;
     private double balance;
-    private Product[] products;
+    private ArrayList<Product> products;
 
     public Person(String name, double balance) {
         setName(name);
         setBalance(balance);
+        products = new ArrayList<>();
     }
 
     public String getName() {
@@ -44,7 +43,16 @@ public class Person {
         }
     }
 
-    public Product[] getProducts() {
+    public boolean buy(Product product) {
+        if(product.getCost() <= this.getBalance()) {
+            this.products.add(product);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<Product> getProducts() {
         return products;
     }
 
@@ -53,7 +61,7 @@ public class Person {
         return "Person{" +
                 "name='" + name + '\'' +
                 ", balance=" + balance +
-                ", products=" + Arrays.toString(products) +
+                ", products=" + products +
                 '}';
     }
 
@@ -62,11 +70,11 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Double.compare(balance, person.balance) == 0 && Objects.equals(name, person.name) && Objects.deepEquals(products, person.products);
+        return Double.compare(balance, person.balance) == 0 && Objects.equals(name, person.name) && Objects.equals(products, person.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, balance, Arrays.hashCode(products));
+        return Objects.hash(name, balance, products);
     }
 }
