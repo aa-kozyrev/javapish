@@ -11,10 +11,15 @@ public class App {
         Scanner terminal = new Scanner(System.in);
         String inputString = terminal.nextLine();
         String[] words1 = inputString.split(";");  // разбили строку на массив покупателей с их данными
-        for (String word1 : words1) {
-            String[] words2 = word1.split("=");  // извлекли из покупателя ФИО и сумму
-            Person person = new Person(words2[0].trim(), Double.parseDouble(words2[1].trim()));
-            persons.add(person);
+        for (String word : words1) {
+            String[] words2 = word.split("=");  // извлекли из покупателя ФИО и сумму
+            try {
+                Person person = new Person(words2[0].trim(), Double.parseDouble(words2[1].trim()));
+                persons.add(person);
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
         }
 
         // вводим Продукты
@@ -23,10 +28,15 @@ public class App {
         terminal = new Scanner(System.in);
         inputString = terminal.nextLine();
         words1 = inputString.split(";");  // разбили строку на массив продуктов с их данными
-        for (String word1 : words1) {
-            String[] words2 = word1.split("=");  // извлекли из продукта название и стоимость
-            Product product = new Product(words2[0].trim(), Double.parseDouble(words2[1].trim()));
-            products.add(product);
+        for (String word : words1) {
+            String[] words2 = word.split("=");  // извлекли из продукта название и стоимость
+            try {
+                Product product = new Product(words2[0].trim(), Double.parseDouble(words2[1].trim()));
+                products.add(product);
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
         }
 
         // Покупки
@@ -61,16 +71,15 @@ public class App {
         // Вывод покупателей с их покупками
         System.out.println();
         for (Person person : persons) {
-            //System.out.println(persons.get(i).toString());
             System.out.print(person.getName() + " - ");
             if (person.getProducts().isEmpty()) {
                 System.out.print("Ничего не куплено");
             } else {
-                for (int j = 0; j < person.getProducts().size(); j++) {
-                    if (j == 0) {
-                        System.out.print(person.getProducts().get(j).getName());
+                for (int i = 0; i < person.getProducts().size(); i++) {
+                    if (i == 0) {
+                        System.out.print(person.getProducts().get(i).getName());
                     } else {
-                        System.out.print(", " + person.getProducts().get(j).getName());
+                        System.out.print(", " + person.getProducts().get(i).getName());
                     }
                 }
             }
