@@ -3,7 +3,6 @@ package ru.kozyrev.attestation.attestation01;
 import java.util.Arrays;
 import java.util.Objects;
 
-// Имя не может быть пустой строкой и не может быть короче 3 символов. Деньги не могут быть отрицательным числом.
 //Если Покупатель может позволить себе Продукт, то Продукт добавляется в пакет. Если у Покупателя недостаточно денег, то добавление не происходит.
 
 public class Person {
@@ -12,8 +11,8 @@ public class Person {
     private Product[] products;
 
     public Person(String name, double balance) {
-        this.name = name;
-        this.balance = balance;
+        setName(name);
+        setBalance(balance);
     }
 
     public String getName() {
@@ -21,7 +20,16 @@ public class Person {
     }
 
     public void setName(String name) {
-        this.name = name;
+        name = name.trim();
+        if(name.isEmpty()) {
+            throw new RuntimeException("Имя не может быть пустой строкой.");
+        } else {
+            if(name.length() < 3) {
+                throw new RuntimeException("Имя не может быть короче 3 символов.");
+            } else {
+                this.name = name;
+            }
+        }
     }
 
     public double getBalance() {
@@ -29,7 +37,11 @@ public class Person {
     }
 
     public void setBalance(double balance) {
-        this.balance = balance;
+        if (balance > 0) {
+            this.balance = balance;
+        } else {
+            throw new RuntimeException("Деньги не могут быть отрицательным числом.");
+        }
     }
 
     public Product[] getProducts() {

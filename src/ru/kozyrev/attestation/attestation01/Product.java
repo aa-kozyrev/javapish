@@ -2,15 +2,13 @@ package ru.kozyrev.attestation.attestation01;
 
 import java.util.Objects;
 
-// Название продукта не может быть пустой строкой, оно должно быть. Стоимость продукта не может быть отрицательным числом.
-
 public class Product {
     private String name;
     private double cost;
 
     public Product(String name, double cost) {
-        this.name = name;
-        this.cost = cost;
+        setName(name);
+        setCost(cost);
     }
 
     public String getName() {
@@ -18,7 +16,12 @@ public class Product {
     }
 
     public void setName(String name) {
+        name = name.trim();
+        if (!name.isEmpty()) {
             this.name = name;
+        } else {
+            throw new RuntimeException("Название продукта не может быть пустой строкой.");
+        }
     }
 
     public double getCost() {
@@ -26,7 +29,11 @@ public class Product {
     }
 
     public void setCost(double cost) {
-        this.cost = cost;
+        if(cost > 0) {
+            this.cost = cost;
+        } else {
+            throw new RuntimeException("Стоимость продукта не может быть отрицательным числом.");
+        }
     }
 
     @Override
