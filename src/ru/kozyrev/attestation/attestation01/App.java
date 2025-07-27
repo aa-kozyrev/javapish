@@ -38,5 +38,40 @@ public class App {
         }
         System.out.println();*/
 
+        // Покупки
+        while (true) {
+            System.out.print("Введите данные для покупки или END для выхода из программы: ");
+            terminal = new Scanner(System.in);
+            inputString = terminal.nextLine();
+            if (inputString.equals("END")) {
+                break;
+            }
+            words1 = inputString.split("-");  // разбили строку на части
+            for (int i = 0; i < persons.size(); i++) {
+                if(persons.get(i).getName().equals(words1[0].trim())) {
+                    // нашли покупателя
+                    for (int j = 0; j < products.size(); j++) {
+                        if(products.get(j).getName().equals(words1[1].trim())) {
+                            // нашли продукт
+                            if(persons.get(i).buy(products.get(j))) {
+                                System.out.println(persons.get(i).getName() + " купил(а) " + products.get(j).getName());
+                            } else {
+                                System.out.println(persons.get(i).getName() + " не может позволить себе " + products.get(j).getName());
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Вывод покупателей с их покупками
+/*
+        for (int i = 0; i < persons.size(); i++) {
+            System.out.println(persons.get(i).toString());
+        }
+        System.out.println();
+*/
     }
 }

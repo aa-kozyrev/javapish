@@ -21,7 +21,7 @@ public class Person {
     public void setName(String name) {
         name = name.trim();
         if(name.isEmpty()) {
-            throw new RuntimeException("Имя не может быть пустой строкой.");
+            throw new RuntimeException("Имя не может быть пустым.");
         } else {
             if(name.length() < 3) {
                 throw new RuntimeException("Имя не может быть короче 3 символов.");
@@ -39,12 +39,13 @@ public class Person {
         if (balance >= 0) {
             this.balance = balance;
         } else {
-            throw new RuntimeException("Деньги не могут быть отрицательным числом.");
+            throw new RuntimeException("Деньги не могут быть отрицательными.");
         }
     }
 
     public boolean buy(Product product) {
         if(product.getCost() <= this.getBalance()) {
+            this.setBalance(this.getBalance() - product.getCost());
             this.products.add(product);
             return true;
         } else {
