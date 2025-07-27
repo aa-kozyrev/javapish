@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Person {
     private String name;
     private double balance;
-    private ArrayList<Product> products;
+    private final ArrayList<Product> products;
 
     public Person(String name, double balance) {
         setName(name);
@@ -36,7 +36,7 @@ public class Person {
     }
 
     public void setBalance(double balance) {
-        if (balance > 0) {
+        if (balance >= 0) {
             this.balance = balance;
         } else {
             throw new RuntimeException("Деньги не могут быть отрицательным числом.");
