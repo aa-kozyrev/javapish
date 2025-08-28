@@ -18,7 +18,15 @@ public class Product {
     public void setName(String name) {
         name = name.trim();
         if (!name.isEmpty()) {
-            this.name = name;
+            if(!name.matches("\\d+")) {
+                if(name.length() >= 3) {
+                    this.name = name;
+                } else {
+                    throw new RuntimeException("Название продукта не может быть короче трех символов.");
+                }
+            } else {
+                throw new RuntimeException("Название продукта не может содержать только цифры.");
+            }
         } else {
             throw new RuntimeException("Название продукта не может быть пустой строкой.");
         }
@@ -32,7 +40,7 @@ public class Product {
         if(cost > 0) {
             this.cost = cost;
         } else {
-            throw new RuntimeException("Стоимость продукта не может быть отрицательным числом.");
+            throw new RuntimeException("Стоимость продукта не может быть 0 или отрицательным числом.");
         }
     }
 
