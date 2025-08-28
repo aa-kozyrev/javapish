@@ -1,6 +1,7 @@
 package ru.kozyrev.homework07;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class DiscountProduct extends Product {
     private int discountPercent;
@@ -39,5 +40,30 @@ public class DiscountProduct extends Product {
             discount = (cost*discountPercent)/100;
         }
         super.setCost(cost - discount);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + super.getName() + '\'' +
+                ", cost=" + super.getCost() +
+                ", discountPercent=" + discountPercent +
+                ", discountDate=" + discountDate +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DiscountProduct product = (DiscountProduct) o;
+        return Double.compare(getCost(), product.getCost()) == 0 && Objects.equals(getName(), product.getName()) &&
+                discountPercent == product.discountPercent && Objects.equals(discountDate, product.discountDate);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.getName(), super.getCost(), discountPercent, discountDate);
     }
 }
