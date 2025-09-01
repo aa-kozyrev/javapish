@@ -1,5 +1,7 @@
 package ru.kozyrev.homework07;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,6 +41,32 @@ public class App {
             }
         }
 
+        // вводим Скидочные Продукты
+        ArrayList<DiscountProduct> discountProducts = new ArrayList<>();
+        System.out.print("Введите данные скидочных продуктов: ");
+        terminal = new Scanner(System.in);
+        inputString = terminal.nextLine();
+        words1 = inputString.split(";");  // разбили строку на массив продуктов с их данными
+        for (String word : words1) {
+            String[] words2 = word.split("=");  // извлекли из продукта название и остальное (стоимость + скидка + дата окончания скидки)
+            String[] words3 = words2[1].split(",");  // извлекли остального - стоимость, скидку, дату окончания скидки
+            try {
+                DiscountProduct discountProduct = new DiscountProduct(words2[0].trim(), Double.parseDouble(words3[0].trim()),
+                                                                      Integer.parseInt(words3[1].trim()),
+                                                                      LocalDate.parse(words3[2].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                discountProducts.add(discountProduct);
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        }
+
+        System.out.println("Скидочные продукты:");
+        for (DiscountProduct discountProduct : discountProducts) {
+            System.out.println("Name=" + discountProduct.getName() + " Cost=" + discountProduct.getCost() +
+                    " CostWithoutDiscont=" + discountProduct.getCostWithoutDiscont());
+        }
+
         // Покупки
         System.out.println();
         while (true) {
@@ -63,6 +91,18 @@ public class App {
                             break;
                         }
                     }
+                    for (DiscountProduct product : discountProducts) {
+                        if (product.getName().equals(words1[1].trim())) {
+                            // нашли скидочный продукт
+                            if (person.buy(product)) {
+                                System.out.println(person.getName() + " купил(а) " + product.getName());
+                            } else {
+                                System.out.println(person.getName() + " не может позволить себе " + product.getName());
+                            }
+                            break;
+                        }
+                    }
+
                     break;
                 }
             }

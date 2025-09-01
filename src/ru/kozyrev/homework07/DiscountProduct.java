@@ -9,8 +9,8 @@ public class DiscountProduct extends Product {
 
     public DiscountProduct(String name, double cost, int discountPercent, LocalDate discountDate) {
         super(name, cost);
-        setDiscountPercent(discountPercent);
         setDiscountDate(discountDate);
+        setDiscountPercent(discountPercent);
     }
 
     public void setDiscountPercent(int discountPercent) {
@@ -34,12 +34,17 @@ public class DiscountProduct extends Product {
     }
 
     @Override
-    public void setCost(double cost) {
+    public double getCost() {
         double discount = 0;
-        if (!LocalDate.now().isAfter(discountDate)) {
+        double cost = super.getCost();
+        if (discountDate.isAfter(LocalDate.now())) {
             discount = (cost*discountPercent)/100;
         }
-        super.setCost(cost - discount);
+        return cost - discount;
+    }
+
+    public double getCostWithoutDiscont() {
+        return super.getCost();
     }
 
     @Override
