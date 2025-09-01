@@ -49,7 +49,7 @@ public class App {
         words1 = inputString.split(";");  // разбили строку на массив продуктов с их данными
         for (String word : words1) {
             String[] words2 = word.split("=");  // извлекли из продукта название и остальное (стоимость + скидка + дата окончания скидки)
-            String[] words3 = words2[1].split(",");  // извлекли остального - стоимость, скидку, дату окончания скидки
+            String[] words3 = words2[1].split(",");  // извлекли остальное - стоимость, скидку, дату окончания скидки
             try {
                 DiscountProduct discountProduct = new DiscountProduct(words2[0].trim(), Double.parseDouble(words3[0].trim()),
                                                                       Integer.parseInt(words3[1].trim()),

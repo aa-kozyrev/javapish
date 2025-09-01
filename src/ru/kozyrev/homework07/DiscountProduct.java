@@ -33,6 +33,14 @@ public class DiscountProduct extends Product {
         }
     }
 
+    public int getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public LocalDate getDiscountDate() {
+        return discountDate;
+    }
+
     @Override
     public double getCost() {
         double discount = 0;
