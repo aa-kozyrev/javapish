@@ -38,6 +38,9 @@ public class Main {
 
         // 3) Вывести цвет автомобиля с минимальной стоимостью.
         System.out.println("::::::: Задание 3 :::::::");
+        cars.stream()
+                .reduce((car1, car2) -> car1.getCost() < car2.getCost() ? car1 : car2)
+                .ifPresent(car -> System.out.println("Цвет автомобиля с минимальной стоимостью: " + car.getColor()));
         System.out.println();
 
         // 4) Среднюю стоимость искомой модели modelToFind
