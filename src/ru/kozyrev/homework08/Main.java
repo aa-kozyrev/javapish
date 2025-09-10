@@ -24,28 +24,17 @@ public class Main {
         System.out.println("::::::: Задание 1 :::::::");
         String colorToFind = "Black";
         double mileageToFind = 0;
-        String result = cars.stream()
-                .filter(car -> car.getColor()
-                .equalsIgnoreCase(colorToFind) || car.getMileage() == mileageToFind)
-                .map(Car::getNumber)
-                .collect(Collectors.joining(" "));
-        System.out.println("Номера автомобилей по цвету или пробегу: " + result);
-        System.out.println();
+        PrintNumbersCars(cars, colorToFind, mileageToFind);
 
         // 2) Количество уникальных моделей в ценовом диапазоне от n до m тыс.
         System.out.println("::::::: Задание 2 :::::::");
         double n = 700000;
         double m = 800000;
-        long cnt = cars.stream().filter(car -> car.getCost() >= n && car.getCost() <= m).count();
-        System.out.println("Уникальные автомобили: " + cnt + " шт.");
-        System.out.println();
+        PrintCountUniqueCars(cars, n, m);
 
         // 3) Вывести цвет автомобиля с минимальной стоимостью.
         System.out.println("::::::: Задание 3 :::::::");
-        cars.stream()
-                .reduce((car1, car2) -> car1.getCost() < car2.getCost() ? car1 : car2)
-                .ifPresent(car -> System.out.println("Цвет автомобиля с минимальной стоимостью: " + car.getColor()));
-        System.out.println();
+        PrintColorCar(cars);
 
         // 4) Среднюю стоимость искомой модели modelToFind
         System.out.println("::::::: Задание 4 :::::::");
@@ -55,8 +44,34 @@ public class Main {
         PrintAvgCostCar(cars, modelToFind);
     }
 
+
+    private static void PrintNumbersCars(ArrayList<Car> cars, String color, double mileage) {
+        String result = cars.stream()
+                .filter(car -> car.getColor().equalsIgnoreCase(color) || car.getMileage() == mileage)
+                .map(Car::getNumber).
+                collect(Collectors.joining(" "));
+        System.out.println("Номера автомобилей по цвету или пробегу: " + result);
+    }
+
+    private static void PrintCountUniqueCars(ArrayList<Car> cars, double fromCost, double toCost) {
+        long cnt = cars.stream()
+                .filter(car -> car.getCost() >= fromCost && car.getCost() <= toCost)
+                .count();
+        System.out.println("Уникальные автомобили: " + cnt + " шт.");
+    }
+
+    private static void PrintColorCar(ArrayList<Car> cars) {
+        cars.stream()
+                .reduce((car1, car2) -> car1.getCost() < car2.getCost() ? car1 : car2)
+                .ifPresent(car -> System.out.println("Цвет автомобиля с минимальной стоимостью: " + car.getColor()));
+    }
+
     private static void PrintAvgCostCar(ArrayList<Car> cars, String model) {
-        double avgCost = cars.stream().filter(car -> car.getModel().equalsIgnoreCase(model)).mapToDouble(Car::getCost).average().orElse(0);
+        double avgCost = cars.stream().
+                filter(car -> car.getModel().equalsIgnoreCase(model))
+                .mapToDouble(Car::getCost)
+                .average()
+                .orElse(0);
         System.out.printf("Средняя стоимость модели %s: %.2f\n", model, avgCost);
     }
 
