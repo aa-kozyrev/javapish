@@ -2,7 +2,7 @@ package ru.kozyrev.homework08;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,6 +22,14 @@ public class Main {
 
         // 1) Номера всех автомобилей, имеющих заданный в переменной цвет colorToFind или нулевой пробег mileageToFind.
         System.out.println("::::::: Задание 1 :::::::");
+        String colorToFind = "Black";
+        double mileageToFind = 0;
+        String result = cars.stream()
+                .filter(car -> car.getColor()
+                .equalsIgnoreCase(colorToFind) || car.getMileage() == mileageToFind)
+                .map(Car::getNumber)
+                .collect(Collectors.joining(" "));
+        System.out.println("Номера автомобилей по цвету или пробегу: " + result);
         System.out.println();
 
         // 2) Количество уникальных моделей в ценовом диапазоне от n до m тыс.
