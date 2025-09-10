@@ -34,6 +34,10 @@ public class Main {
 
         // 2) Количество уникальных моделей в ценовом диапазоне от n до m тыс.
         System.out.println("::::::: Задание 2 :::::::");
+        double n = 700000;
+        double m = 800000;
+        long cnt = cars.stream().filter(car -> car.getCost() >= n && car.getCost() <= m).count();
+        System.out.println("Уникальные автомобили: " + cnt + " шт.");
         System.out.println();
 
         // 3) Вывести цвет автомобиля с минимальной стоимостью.
@@ -45,13 +49,15 @@ public class Main {
 
         // 4) Среднюю стоимость искомой модели modelToFind
         System.out.println("::::::: Задание 4 :::::::");
-        final String modelToFind = "Volvo";
-        double avgCost = cars.stream()
-                .filter(car -> car.getModel().equalsIgnoreCase(modelToFind))
-                .mapToDouble(Car::getCost)
-                .average()
-                .orElse(0);
-        System.out.printf("Средняя стоимость модели %s: %.2f", modelToFind, avgCost);
-        System.out.println();
+        String modelToFind = "Toyota";
+        PrintAvgCostCar(cars, modelToFind);
+        modelToFind = "Volvo";
+        PrintAvgCostCar(cars, modelToFind);
     }
+
+    private static void PrintAvgCostCar(ArrayList<Car> cars, String model) {
+        double avgCost = cars.stream().filter(car -> car.getModel().equalsIgnoreCase(model)).mapToDouble(Car::getCost).average().orElse(0);
+        System.out.printf("Средняя стоимость модели %s: %.2f\n", model, avgCost);
+    }
+
 }
