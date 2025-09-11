@@ -20,6 +20,9 @@ public class Main {
         ArrayList<Car> cars = new ArrayList<>();
         Collections.addAll(cars, auto1, auto2, auto3, auto4, auto5, auto6, auto7, auto8, auto9, auto10);
 
+        // Автомобили в базе
+        printAllCars(cars);
+
         // 1) Номера всех автомобилей, имеющих заданный в переменной цвет colorToFind или нулевой пробег mileageToFind.
         System.out.println("::::::: Задание 1 :::::::");
         String colorToFind = "Black";
@@ -44,6 +47,28 @@ public class Main {
         PrintAvgCostCar(cars, modelToFind);
     }
 
+    private static void printAllCars(ArrayList<Car> cars) {
+        int[] columnWidths = {10, 12, 10, 12, 15};
+        String[] row = {"Number", "Model", "Color", "Mileage", "Cost"};
+        // заголовок таблицы
+        for (int i = 0; i < row.length; i++) {
+            System.out.printf("%-" + columnWidths[i] + "s", row[i]);
+        }
+        System.out.println();
+        // строки таблицы
+        for (Car car : cars) {
+            row[0] = car.getNumber();
+            row[1] = car.getModel();
+            row[2] = car.getColor();
+            row[3] = String.valueOf(car.getMileage());
+            row[4] = String.format("%.2f", car.getCost());
+
+            for (int i = 0; i < row.length; i++) {
+                System.out.printf("%-" + columnWidths[i] + "s", row[i]);
+            }
+            System.out.println();
+        }
+    }
 
     private static void PrintNumbersCars(ArrayList<Car> cars, String color, double mileage) {
         String result = cars.stream()
