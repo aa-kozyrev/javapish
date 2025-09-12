@@ -27,24 +27,24 @@ public class Main {
         System.out.println("::::::: Задание 1 :::::::");
         String colorToFind = "Black";
         double mileageToFind = 0L;
-        PrintNumbersCars(cars, colorToFind, mileageToFind);
+        printNumbersCars(cars, colorToFind, mileageToFind);
 
         // 2) Количество уникальных моделей в ценовом диапазоне от n до m тыс.
         System.out.println("::::::: Задание 2 :::::::");
-        double n = 700_000L;
-        double m = 800_000L;
-        PrintCountUniqueCars(cars, n, m);
+        long n = 700_000L;
+        long m = 800_000L;
+        printCountUniqueCars(cars, n, m);
 
         // 3) Вывести цвет автомобиля с минимальной стоимостью.
         System.out.println("::::::: Задание 3 :::::::");
-        PrintColorCar(cars);
+        printColorCar(cars);
 
         // 4) Среднюю стоимость искомой модели modelToFind
         System.out.println("::::::: Задание 4 :::::::");
         String modelToFind = "Toyota";
-        PrintAvgCostCar(cars, modelToFind);
+        printAvgCostCar(cars, modelToFind);
         modelToFind = "Volvo";
-        PrintAvgCostCar(cars, modelToFind);
+        printAvgCostCar(cars, modelToFind);
     }
 
     private static void printAllCars(ArrayList<Car> cars) {
@@ -72,7 +72,7 @@ public class Main {
         }
     }
 
-    private static void PrintNumbersCars(ArrayList<Car> cars, String color, double mileage) {
+    private static void printNumbersCars(ArrayList<Car> cars, String color, double mileage) {
         String result = cars.stream()
                 .filter(car -> car.getColor().equalsIgnoreCase(color) || car.getMileage() == mileage)
                 .map(Car::getNumber).
@@ -80,7 +80,7 @@ public class Main {
         System.out.println("Номера автомобилей по цвету или пробегу: " + result);
     }
 
-    private static void PrintCountUniqueCars(ArrayList<Car> cars, double fromCost, double toCost) {
+    private static void printCountUniqueCars(ArrayList<Car> cars, double fromCost, double toCost) {
         long cnt = cars.stream()
                 .filter(car -> car.getCost() >= fromCost && car.getCost() <= toCost)
                 .map(Car::getModel)
@@ -89,13 +89,13 @@ public class Main {
         System.out.println("Уникальные модели автомобилей: " + cnt + " шт.");
     }
 
-    private static void PrintColorCar(ArrayList<Car> cars) {
+    private static void printColorCar(ArrayList<Car> cars) {
         cars.stream()
                 .reduce((car1, car2) -> car1.getCost() < car2.getCost() ? car1 : car2)
                 .ifPresent(car -> System.out.println("Цвет автомобиля с минимальной стоимостью: " + car.getColor()));
     }
 
-    private static void PrintAvgCostCar(ArrayList<Car> cars, String model) {
+    private static void printAvgCostCar(ArrayList<Car> cars, String model) {
         double avgCost = cars.stream().
                 filter(car -> car.getModel().equalsIgnoreCase(model))
                 .mapToDouble(Car::getCost)
