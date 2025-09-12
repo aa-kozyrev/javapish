@@ -26,13 +26,13 @@ public class Main {
         // 1) Номера всех автомобилей, имеющих заданный в переменной цвет colorToFind или нулевой пробег mileageToFind.
         System.out.println("::::::: Задание 1 :::::::");
         String colorToFind = "Black";
-        double mileageToFind = 0;
+        double mileageToFind = 0L;
         PrintNumbersCars(cars, colorToFind, mileageToFind);
 
         // 2) Количество уникальных моделей в ценовом диапазоне от n до m тыс.
         System.out.println("::::::: Задание 2 :::::::");
-        double n = 700000;
-        double m = 800000;
+        double n = 700_000L;
+        double m = 800_000L;
         PrintCountUniqueCars(cars, n, m);
 
         // 3) Вывести цвет автомобиля с минимальной стоимостью.
@@ -63,7 +63,7 @@ public class Main {
             row[1] = car.getModel();
             row[2] = car.getColor();
             row[3] = String.valueOf(car.getMileage());
-            row[4] = String.format("%.2f", car.getCost());
+            row[4] = String.valueOf(car.getCost());
 
             for (int i = 0; i < row.length; i++) {
                 System.out.printf("%-" + columnWidths[i] + "s", row[i]);

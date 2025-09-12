@@ -6,10 +6,10 @@ public class Car {
     private String number;
     private String model;
     private String color;
-    private double mileage = 0;
-    private double cost;
+    private long mileage = 0L;
+    private long cost;
 
-    public Car(String number, String model, String color, double mileage, double cost) {
+    public Car(String number, String model, String color, long mileage, long cost) {
         this.number = number;
         this.model = model;
         this.color = color;
@@ -17,7 +17,7 @@ public class Car {
         this.cost = cost;
     }
 
-    public Car(String number, String model, String color, double cost) {
+    public Car(String number, String model, String color, long cost) {
         this.number = number;
         this.model = model;
         this.color = color;
@@ -48,19 +48,19 @@ public class Car {
         this.color = color;
     }
 
-    public double getMileage() {
+    public long getMileage() {
         return mileage;
     }
 
-    public void setMileage(double mileage) {
+    public void setMileage(long mileage) {
         this.mileage = mileage;
     }
 
-    public double getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 
@@ -80,7 +80,7 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return Double.compare(mileage, car.mileage) == 0 && Double.compare(cost, car.cost) == 0 && Objects.equals(number, car.number) && Objects.equals(model, car.model) && Objects.equals(color, car.color);
+        return mileage == car.mileage && cost == car.cost && Objects.equals(number, car.number) && Objects.equals(model, car.model) && Objects.equals(color, car.color);
     }
 
     @Override
