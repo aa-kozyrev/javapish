@@ -64,6 +64,15 @@ public class Car {
         this.cost = cost;
     }
 
+    public static Car stringToCar(String str, String separator) {
+        String[] parts = str.split(separator);
+        return new Car(parts[0], parts[1], parts[2], Long.parseLong(parts[3]), Long.parseLong(parts[4]));
+    }
+
+    public String carToString(String separator) {
+        return number + separator + model + separator + color + separator + mileage + separator + cost;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
