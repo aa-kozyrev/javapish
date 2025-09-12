@@ -1,7 +1,5 @@
 package ru.kozyrev.homework08addition.repository;
 
-import ru.kozyrev.homework08addition.model.Car;
-
 public interface CarsRepository {
     void loadFromFile(String filename, String separator);
     void saveToFile(String filename, String separator);
