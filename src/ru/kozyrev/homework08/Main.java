@@ -50,7 +50,9 @@ public class Main {
     private static void printAllCars(ArrayList<Car> cars) {
         int[] columnWidths = {10, 12, 10, 12, 15};
         String[] row = {"Number", "Model", "Color", "Mileage", "Cost"};
-        // заголовок таблицы
+        // заголовок
+        System.out.println("Автомобили в базе:");
+        // "шапка" таблицы
         for (int i = 0; i < row.length; i++) {
             System.out.printf("%-" + columnWidths[i] + "s", row[i]);
         }
@@ -81,8 +83,10 @@ public class Main {
     private static void PrintCountUniqueCars(ArrayList<Car> cars, double fromCost, double toCost) {
         long cnt = cars.stream()
                 .filter(car -> car.getCost() >= fromCost && car.getCost() <= toCost)
+                .map(Car::getModel)
+                .distinct()
                 .count();
-        System.out.println("Уникальные автомобили: " + cnt + " шт.");
+        System.out.println("Уникальные модели автомобилей: " + cnt + " шт.");
     }
 
     private static void PrintColorCar(ArrayList<Car> cars) {
